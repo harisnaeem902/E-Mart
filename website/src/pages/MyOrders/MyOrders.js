@@ -46,16 +46,17 @@ function MyOrders() {
 
     try {
       await api.put(`/orders/${cancelModalOrderId}/status`, {
-        status: "Cancel Pending",
+        status: "Cancelled",
         cancellationReason: cancellationReason,
+        cancellationNote: cancellationReason,
         cancelledBy: "customer",
       });
-      showToast("Cancellation request submitted successfully");
+      showToast("Order cancelled successfully");
       setCancelModalOrderId(null);
       loadOrders();
     } catch (err) {
       showToast(
-        err.response?.data?.message || "Failed to request cancellation",
+        err.response?.data?.message || "Failed to cancel order",
         "error"
       );
     }
@@ -99,8 +100,8 @@ function MyOrders() {
       {cancelModalOrderId && (
         <div className="cancel-modal-overlay">
           <div className="cancel-modal">
-            <h3>Request Cancellation</h3>
-            <p>Please enter the reason why you wish to cancel this order:</p>
+            <h3>Cancel Order</h3>
+            <p>Please enter the reason why you are cancelling this order:</p>
             <textarea
               value={cancellationReason}
               onChange={(e) => setCancellationReason(e.target.value)}
@@ -108,7 +109,7 @@ function MyOrders() {
             />
             <div className="cancel-modal-actions">
               <button className="confirm-btn" onClick={handleRequestCancel}>
-                Submit Request
+                Confirm Cancellation
               </button>
               <button className="close-btn" onClick={() => setCancelModalOrderId(null)}>
                 Close
@@ -139,7 +140,7 @@ function MyOrders() {
 
               {noteText && (
                 <div className="cancellation-note-banner">
-                  <strong>Cancellation Note:</strong> {noteText}
+                  <strong>Cancellation Reason:</strong> {noteText}
                 </div>
               )}
 
@@ -178,7 +179,7 @@ function MyOrders() {
                   <strong>Rs {getOrderTotal(order)}</strong>
                 </div>
 
-                {currentStatus === "Pending" && (
+                {(currentStatus === "Pending" || currentStatus === "Processing") && (
                   <button
                     className="cancel-order-btn"
                     onClick={() => handleOpenCancelModal(order._id)}

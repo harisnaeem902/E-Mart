@@ -24,10 +24,14 @@ router.get("/", protect, admin, getOrders);
 
 // Specific sub-routes (MUST come before /:id parameter route)
 router.get("/myorders", protect, getMyOrders);
-router.put("/:id/status", protect, admin, updateOrderStatus);
+
+// Updated: Allowed protected users to update order status (e.g. cancellation) without admin requirement
+router.put("/:id/status", protect, updateOrderStatus);
 
 // Dynamic parameter routes
 router.get("/:id", protect, getOrderById);
+
+// Strictly restricted to Admin only: Delete order permanently
 router.delete("/:id", protect, admin, deleteOrder);
 
 module.exports = router;

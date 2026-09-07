@@ -117,6 +117,23 @@ const updateOrderStatus = async (req, res) => {
   try {
     const { status, cancellationNote, cancellationReason, cancelledBy } = req.body;
 
+    const order = await Order.findById(req.params.id);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    const isAdmin = req.user && (req.user.isAdmin || req.user.role === "admin");
+    const isOwner = req.user && order.user && order.user.toString() === req.user._id.toString();
+
+    if (!isAdmin && !isOwner) {
+      return res.status(403).json({ message: "Not authorized to update this order" });
+    }
+
+    // Non-admin users are only allowed to request cancellation or cancel pending orders
+    if (!isAdmin && status !== "Cancelled" && status !== "Cancel Pending") {
+      return res.status(400).json({ message: "Users are only allowed to cancel orders" });
+    }
+
     const updateFields = {};
     if (status) updateFields.status = status;
     if (cancellationNote) updateFields.cancellationNote = cancellationNote;
@@ -137,10 +154,6 @@ const updateOrderStatus = async (req, res) => {
       { new: true, runValidators: false }
     );
 
-    if (!updatedOrder) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-
     return res.json(updatedOrder);
   } catch (error) {
     console.error("Order status update error:", error);
@@ -148,7 +161,7 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
-// @desc    Delete order (Admin)
+// @desc    Delete order (Admin Only)
 // @route   DELETE /api/orders/:id
 // @access  Private/Admin
 const deleteOrder = async (req, res) => {
