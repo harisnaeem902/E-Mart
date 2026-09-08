@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 import { useToast } from "../../context/ToastContext";
+import { imageUrl } from "../../utils/imageUrl";
 import "./ProductCard.css";
 
 function ProductCard({ product }) {
@@ -65,7 +66,7 @@ function ProductCard({ product }) {
         {imageList.map((imgSrc, index) => (
           <img
             key={index}
-            src={`http://localhost:5000${imgSrc}`}
+            src={imageUrl(imgSrc)}
             alt={`${product.name} ${index + 1}`}
             className={`product-slide-img ${index === currentImageIndex ? "active" : ""}`}
           />

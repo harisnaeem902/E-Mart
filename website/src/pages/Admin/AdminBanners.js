@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { useToast } from "../../context/ToastContext";
+import { imageUrl } from "../../utils/imageUrl";
 import "./Admin.css";
 
 function AdminBanners() {
@@ -55,7 +56,7 @@ function AdminBanners() {
       <div className="admin-product-list">
         {banners.map((b) => (
           <div className="admin-product-row" key={b._id}>
-            <img src={`http://localhost:5000${b.image}`} alt="Banner" />
+            <img src={imageUrl(b.image)} alt="Banner" />
             <button onClick={() => handleBannerDelete(b._id)}>Delete</button>
           </div>
         ))}

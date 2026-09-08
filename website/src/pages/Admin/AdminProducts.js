@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import { useToast } from "../../context/ToastContext";
 import { categories } from "../../data/categories";
+import { imageUrl } from "../../utils/imageUrl";
 import "./Admin.css";
 
 function AdminProducts() {
@@ -289,7 +290,7 @@ function AdminProducts() {
               </form>
             ) : (
               <div className="admin-product-row" key={p._id}>
-                <img src={`http://localhost:5000${p.images && p.images.length > 0 ? p.images[0] : p.image}`} alt={p.name} />
+                <img src={imageUrl(p.images && p.images.length > 0 ? p.images[0] : p.image)} alt={p.name} />
                 <div className="admin-product-info">
                   <strong>{p.name}</strong>
                   <span>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../../services/api";
+import { imageUrl } from "../../utils/imageUrl";
 import "./HeroBanner.css";
 
 function HeroBanner() {
@@ -34,7 +35,7 @@ function HeroBanner() {
             key={banner._id}
             className={index === currentIndex ? "hero-slide active" : "hero-slide"}
             style={{
-              backgroundImage: `url("${encodeURI(`http://localhost:5000${banner.image}`)}")`,
+              backgroundImage: `url("${imageUrl(banner.image)}")`,
             }}
           />
         ))}
