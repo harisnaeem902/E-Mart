@@ -1,13 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../middleware/Middlewareupload");
+const upload = require("../middleware/uploadMiddleware");
 const productController = require("../controllers/productController");
 const { protect, admin } = require("../middleware/authMiddleware");
 
-// Special routes (must come BEFORE /:id route)
+// Routes
 router.get("/sale", productController.getSaleProducts);
-
-// Standard CRUD Routes
 router.get("/", productController.getProducts);
 router.get("/:id", productController.getProductById);
 

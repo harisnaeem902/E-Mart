@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../middleware/Middlewareupload");
+const upload = require("../middleware/uploadMiddleware");
 const bannerController = require("../controllers/bannerController");
 const { protect, admin } = require("../middleware/authMiddleware");
 
-// Routes using Cloudinary Upload Middleware
 router.post(
   "/",
   protect,
