@@ -6,8 +6,11 @@ exports.createBanner = async (req, res) => {
       return res.status(400).json({ message: "Banner image is required" });
     }
 
+    // Cloudinary returns the HTTPS URL in req.file.path or req.file.secure_url
+    const imageUrl = req.file.path || req.file.secure_url;
+
     const banner = await Banner.create({
-      image: req.file.path,
+      image: imageUrl,
       createdBy: req.user.id,
     });
 

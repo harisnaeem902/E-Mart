@@ -1,22 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
+const upload = require("../middleware/Middlewareupload");
 const bannerController = require("../controllers/bannerController");
 const { protect, admin } = require("../middleware/authMiddleware");
 
-// Setup Disk Storage for Multer
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename(req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
-
-const upload = multer({ storage });
-
-// Routes
+// Routes using Cloudinary Upload Middleware
 router.post(
   "/",
   protect,
