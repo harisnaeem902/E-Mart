@@ -9,7 +9,6 @@ const bannerRoutes = require("./routes/bannerRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
@@ -25,6 +24,16 @@ app.use(
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Middleware to ensure Database Connection per serverless request
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(500).json({ message: "Database connection failed", error: error.message });
+  }
+});
+
 app.get("/", (req, res) => {
   res.send("E-Mart API is running");
 });
@@ -34,9 +43,12 @@ app.use("/api/products", productRoutes);
 app.use("/api/banners", bannerRoutes);
 app.use("/api/orders", orderRoutes);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Only listen on PORT when running locally (not on Vercel)
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 module.exports = app;
