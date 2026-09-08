@@ -5,10 +5,12 @@ exports.createProduct = async (req, res) => {
     const { name, category, price, description, oldPrice, isOutOfStock } = req.body;
 
     let uploadedImages = [];
+    
+    // Safely extract Cloudinary URLs from array or single file upload
     if (req.files && req.files.length > 0) {
-      uploadedImages = req.files.map((file) => file.path);
+      uploadedImages = req.files.map((file) => file.path || file.secure_url);
     } else if (req.file) {
-      uploadedImages.push(req.file.path);
+      uploadedImages.push(req.file.path || req.file.secure_url);
     } else {
       return res.status(400).json({ message: "At least one product image is required" });
     }
@@ -57,12 +59,13 @@ exports.updateProduct = async (req, res) => {
     if (description !== undefined) product.description = description;
 
     if (req.files && req.files.length > 0) {
-      const uploadedImages = req.files.map((file) => file.path);
+      const uploadedImages = req.files.map((file) => file.path || file.secure_url);
       product.image = uploadedImages[0];
       product.images = uploadedImages;
     } else if (req.file) {
-      product.image = req.file.path;
-      product.images = [req.file.path];
+      const imageUrl = req.file.path || req.file.secure_url;
+      product.image = imageUrl;
+      product.images = [imageUrl];
     }
 
     if (isOutOfStock !== undefined) {
