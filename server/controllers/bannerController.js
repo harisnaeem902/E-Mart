@@ -7,7 +7,7 @@ exports.createBanner = async (req, res) => {
     }
 
     const banner = await Banner.create({
-      image: `/uploads/${req.file.filename}`,
+      image: req.file.path,
       createdBy: req.user.id,
     });
 

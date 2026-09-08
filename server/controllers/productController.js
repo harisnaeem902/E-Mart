@@ -4,12 +4,11 @@ exports.createProduct = async (req, res) => {
   try {
     const { name, category, price, description, oldPrice, isOutOfStock } = req.body;
 
-    // Check for files processed by Multer
     let uploadedImages = [];
     if (req.files && req.files.length > 0) {
-      uploadedImages = req.files.map((file) => `/uploads/${file.filename}`);
+      uploadedImages = req.files.map((file) => file.path);
     } else if (req.file) {
-      uploadedImages.push(`/uploads/${req.file.filename}`);
+      uploadedImages.push(req.file.path);
     } else {
       return res.status(400).json({ message: "At least one product image is required" });
     }
@@ -30,8 +29,8 @@ exports.createProduct = async (req, res) => {
       category,
       price: newPrice,
       description,
-      image: uploadedImages[0],  // Primary fallback image
-      images: uploadedImages,    // Full images array
+      image: uploadedImages[0],
+      images: uploadedImages,
       createdBy: req.user.id,
       onSale,
       oldPrice: parsedOldPrice,
@@ -57,11 +56,13 @@ exports.updateProduct = async (req, res) => {
     if (category) product.category = category;
     if (description !== undefined) product.description = description;
 
-    // Update images if new ones are uploaded
     if (req.files && req.files.length > 0) {
-      const uploadedImages = req.files.map((file) => `/uploads/${file.filename}`);
+      const uploadedImages = req.files.map((file) => file.path);
       product.image = uploadedImages[0];
       product.images = uploadedImages;
+    } else if (req.file) {
+      product.image = req.file.path;
+      product.images = [req.file.path];
     }
 
     if (isOutOfStock !== undefined) {
