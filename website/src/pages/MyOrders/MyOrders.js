@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import api from "../../services/api";
 import { useToast } from "../../context/ToastContext";
+import { imageUrl } from "../../utils/imageUrl";
 import "./MyOrders.css";
 
 function MyOrders() {
@@ -70,12 +71,6 @@ function MyOrders() {
       order.itemsPrice ??
       0;
     return Number(amount).toLocaleString();
-  };
-
-  const getImageUrl = (imagePath) => {
-    if (!imagePath) return "";
-    if (imagePath.startsWith("http")) return imagePath;
-    return `http://localhost:5000${imagePath}`;
   };
 
   if (loading) {
@@ -154,7 +149,7 @@ function MyOrders() {
                     return (
                       <div key={idx} className="user-order-item-row">
                         <img
-                          src={getImageUrl(imageSrc)}
+                          src={imageUrl(imageSrc)}
                           alt={item.name || "Product"}
                           className="user-order-item-img"
                         />

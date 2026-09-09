@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import api from "../../services/api";
 import { useToast } from "../../context/ToastContext";
+import { imageUrl } from "../../utils/imageUrl";
 import "./Admin.css";
 
 function AdminOrders() {
@@ -35,7 +36,7 @@ function AdminOrders() {
 
   const handleStatusChange = async (orderId, newStatus, extraData = {}) => {
     try {
-      await api.put(`/orders/${orderId}/status`, { 
+      await api.put(`/orders/${orderId}/status`, {
         status: newStatus,
         ...extraData
       });
@@ -99,12 +100,6 @@ function AdminOrders() {
       order.itemsPrice ??
       0;
     return Number(amount).toLocaleString();
-  };
-
-  const getImageUrl = (imagePath) => {
-    if (!imagePath) return "";
-    if (imagePath.startsWith("http")) return imagePath;
-    return `http://localhost:5000${imagePath}`;
   };
 
   return (
@@ -186,7 +181,7 @@ function AdminOrders() {
                         >
                           {imageSrc && (
                             <img
-                              src={getImageUrl(imageSrc)}
+                              src={imageUrl(imageSrc)}
                               alt={item.name}
                               style={{
                                 width: "45px",
@@ -247,7 +242,7 @@ function AdminOrders() {
                       className="btn-admin-delete"
                       onClick={() => handleDeleteOrder(order._id)}
                     >
-                      🗑️ Delete
+                      Delete
                     </button>
                   </div>
                 </div>
