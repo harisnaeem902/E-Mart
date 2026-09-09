@@ -75,10 +75,10 @@ function Checkout() {
       clearCart();
 
       if (user) {
-        navigate("/my-orders");
-      } else {
-        navigate("/");
-      }
+  navigate("/orders");
+} else {
+  navigate("/");
+}
     } catch (err) {
       showToast(err.response?.data?.message || "Failed to place order", "error");
     } finally {
