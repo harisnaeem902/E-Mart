@@ -4,6 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 import { categories } from "../../data/categories";
+import { imageUrl } from "../../utils/imageUrl";
 import api from "../../services/api";
 import "./Header.css";
 
@@ -76,7 +77,7 @@ function Header() {
       <div className="top-bar">
         <span>Welcome to E-Mart</span>
         <div className="top-bar-right">
-          <a
+          
             href="https://maps.app.goo.gl/cMgF17vJ4rz9GMUE8"
             target="_blank"
             rel="noopener noreferrer"
@@ -113,7 +114,7 @@ function Header() {
                   className="suggestion-row"
                   onClick={() => handleSuggestionClick(p.name)}
                 >
-                  <img src={`http://localhost:5000${p.image}`} alt={p.name} />
+                  <img src={imageUrl(p.images && p.images.length > 0 ? p.images[0] : p.image)} alt={p.name} />
                   <div className="suggestion-info">
                     <span className="suggestion-name">{p.name}</span>
                     <span className="suggestion-category">{p.category}</span>
@@ -130,7 +131,7 @@ function Header() {
         <div className="header-actions">
           <div className="dropdown-wrapper">
             <button className="dropdown-trigger-btn">
-              👤 {user ? user.name : "Account"} <span className="arrow">▾</span>
+              Account: {user ? user.name : "Account"} <span className="arrow">v</span>
             </button>
 
             <div className="slide-popover account-popover">
@@ -141,18 +142,18 @@ function Header() {
                     <strong className="user-email">{user.email}</strong>
                   </div>
                   <div className="popover-divider" />
-                  
+
                   {(user.isAdmin === true || user.isAdmin === "true" || user.role === "admin") && (
                     <Link to="/admin" className="popover-item">
-                      ⚙️ Admin Panel
+                      Admin Panel
                     </Link>
                   )}
 
                   <Link to="/my-orders" className="popover-item">
-                    📦 My Orders
+                    My Orders
                   </Link>
                   <button className="popover-item logout-action" onClick={handleLogout}>
-                    🚪 Logout
+                    Logout
                   </button>
                 </>
               ) : (
@@ -169,12 +170,12 @@ function Header() {
           </div>
 
           <Link to="/wishlist" className="action-icon-link" title="Wishlist">
-            ♡
+            Wishlist
             {wishlistCount > 0 && <span className="cart-badge">{wishlistCount}</span>}
           </Link>
 
           <Link to="/cart" className="action-icon-link" title="Cart">
-            🛒
+            Cart
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </Link>
         </div>
@@ -188,7 +189,7 @@ function Header() {
 
           <li className="dropdown-wrapper">
             <span className="nav-menu-link">
-              Categories <span className="arrow">▾</span>
+              Categories <span className="arrow">v</span>
             </span>
 
             <div className="slide-popover category-popover">
@@ -199,7 +200,7 @@ function Header() {
                     to={`/category/${encodeURIComponent(cat)}`}
                     className="category-grid-link"
                   >
-                    <span className="dot">•</span> {cat}
+                    {cat}
                   </Link>
                 ))}
               </div>
