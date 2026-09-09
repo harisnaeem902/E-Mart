@@ -76,15 +76,8 @@ function Header() {
     <header className="site-header">
       <div className="top-bar">
         <span>Welcome to E-Mart</span>
-        <div className="top-bar-right">
-          
-            href="https://maps.app.goo.gl/cMgF17vJ4rz9GMUE8"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="location-link"
-          >
-            Store location
-          </a>
+                <div className="top-bar-right">
+          <a href="https://maps.app.goo.gl/cMgF17vJ4rz9GMUE8" target="_blank" rel="noopener noreferrer" className="location-link">Store location</a>
           <span>(+92) - 302-6742902</span>
         </div>
       </div>
@@ -114,7 +107,10 @@ function Header() {
                   className="suggestion-row"
                   onClick={() => handleSuggestionClick(p.name)}
                 >
-                  <img src={imageUrl(p.images && p.images.length > 0 ? p.images[0] : p.image)} alt={p.name} />
+                  <img
+                    src={imageUrl(p.images && p.images.length > 0 ? p.images[0] : p.image)}
+                    alt={p.name}
+                  />
                   <div className="suggestion-info">
                     <span className="suggestion-name">{p.name}</span>
                     <span className="suggestion-category">{p.category}</span>
@@ -141,7 +137,7 @@ function Header() {
                     <span className="small-label">Signed in as</span>
                     <strong className="user-email">{user.email}</strong>
                   </div>
-                  <div className="popover-divider" />
+                  <div className="popover-divider"></div>
 
                   {(user.isAdmin === true || user.isAdmin === "true" || user.role === "admin") && (
                     <Link to="/admin" className="popover-item">
