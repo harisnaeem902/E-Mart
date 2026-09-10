@@ -1,0 +1,67 @@
+.category-slider {
+  display: flex;
+  align-items: center;
+  padding: 30px 40px;
+  gap: 10px;
+}
+
+.category-list {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  flex: 1;
+}
+
+.category-list::-webkit-scrollbar { 
+  display: none; 
+}
+
+.category-card {
+  flex: 0 0 auto;
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c8e6c9; /* Soft green border */
+  border-radius: 6px;
+  padding: 14px 20px;
+  background: #f4f9f0; /* Light green background shade */
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.category-card:hover { 
+  border-color: #7cb342; 
+  background: #e8f3dd; /* Darker light green shade on hover */
+}
+
+.category-card p { 
+  margin: 0; 
+  font-size: 13px; 
+  font-weight: 600; 
+  color: #2e7d32; /* Dark green text for high readability */
+  white-space: nowrap;
+}
+
+.slider-arrow {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.slider-arrow:hover { 
+  background: #7cb342; 
+  color: #fff; 
+  border-color: #7cb342; 
+}

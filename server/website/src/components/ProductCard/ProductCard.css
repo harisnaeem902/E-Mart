@@ -1,0 +1,213 @@
+/* Card Box */
+.product-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  height: 100%; /* Ensures uniform card height in the grid */
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+/* Badges */
+.sale-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #ef4444;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 10;
+}
+
+.out-of-stock-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+}
+
+/* Image Wrapper Box */
+.product-image-slider {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-slide-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Prevents stretching TVs or Fridges */
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.product-slide-img.active {
+  opacity: 1;
+}
+
+/* Slider Dots */
+.card-image-dots {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  z-index: 3;
+}
+
+.card-image-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-image-dot.active {
+  background: #22c55e;
+  width: 14px;
+  border-radius: 10px;
+}
+
+/* Product Info Section */
+.product-category {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 0 0 6px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.product-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+  min-height: 42px; /* Fixed height so all titles line up without overflowing */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Pricing Layout */
+.product-price-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.old-price {
+  font-size: 13px;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.product-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+/* Actions Row */
+.product-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto; /* Pushes button row to the bottom cleanly */
+  width: 100%;
+}
+
+.add-to-cart {
+  flex: 1;
+  background-color: #22c55e;
+  color: #ffffff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.add-to-cart:hover:not(:disabled) {
+  background-color: #16a34a;
+}
+
+.add-to-cart:disabled {
+  background-color: #e2e8f0 !important;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* Wishlist Button */
+.icon-btn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.icon-btn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+  border-color: #fca5a5;
+}
+
+.wishlist-active {
+  color: #ef4444;
+  background: #fee2e2;
+  border-color: #fca5a5;
+}

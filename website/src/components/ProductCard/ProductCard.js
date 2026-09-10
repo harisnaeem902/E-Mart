@@ -36,14 +36,14 @@ function ProductCard({ product }) {
   };
 
   const handleAdd = (e) => {
-    e.stopPropagation(); // Prevents opening details page on button click
+    e.stopPropagation();
     if (isOutOfStock) return;
     addToCart(product);
     showToast(`${product.name} added to cart`);
   };
 
   const handleWishlist = (e) => {
-    e.stopPropagation(); // Prevents opening details page on button click
+    e.stopPropagation();
     toggleWishlist(product);
     showToast(
       inWishlist
@@ -54,14 +54,12 @@ function ProductCard({ product }) {
 
   return (
     <div className={`product-card ${isOutOfStock ? "out-of-stock-card" : ""}`}>
-      {/* Badges */}
       {isOutOfStock ? (
         <span className="out-of-stock-tag">Out of Stock</span>
       ) : (
-        product.onSale && <span className="sale-tag">-{product.salePercent}%</span>
+        product.onSale && <span className="sale-tag">Sale -{product.salePercent}%</span>
       )}
 
-      {/* Sliding Product Image Box - Click to open product details */}
       <div className="product-image-slider" onClick={goToDetails} style={{ cursor: "pointer" }}>
         {imageList.map((imgSrc, index) => (
           <img
@@ -90,7 +88,6 @@ function ProductCard({ product }) {
 
       <p className="product-category">{product.category}</p>
 
-      {/* Product Name - Click to open product details */}
       <h4
         className="product-name"
         onClick={goToDetails}
