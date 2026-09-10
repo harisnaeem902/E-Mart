@@ -1,0 +1,16 @@
+export const categories = [
+  "TV",
+  "Air Conditioner",
+  "Air Cooler",
+  "Refrigerator",
+  "Water Dispenser",
+  "Heater",
+  "Microwave",
+  "Dishwasher",
+  "Deep Freezer",
+  "Hair Dryer",
+  "Hair Straightener",
+  "Kettle",
+  "Trimmer",
+  "Iron",
+];

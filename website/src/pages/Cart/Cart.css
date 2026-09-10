@@ -1,0 +1,67 @@
+.cart-page { 
+  max-width: 700px; 
+  margin: 40px auto; 
+  padding: 0 20px; 
+}
+
+.cart-item { 
+  display: flex; 
+  align-items: center; 
+  gap: 16px; 
+  border-bottom: 1px solid #eee; 
+  padding: 16px 0; 
+}
+
+.cart-item img { 
+  width: 70px; 
+  height: 70px; 
+  object-fit: contain; 
+}
+
+.cart-item-info { 
+  flex: 1; 
+}
+
+/* Updated Soft Red Remove Button */
+.remove-cart-btn { 
+  background-color: #fef2f2; 
+  border: 1px solid #fca5a5; 
+  color: #dc2626; 
+  padding: 8px 14px; 
+  border-radius: 8px; 
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer; 
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.remove-cart-btn:hover {
+  background-color: #fee2e2;
+  border-color: #f87171;
+  color: #b91c1c;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.12);
+}
+
+.cart-total { 
+  text-align: right; 
+  margin-top: 20px; 
+}
+
+.checkout-btn { 
+  display: block; 
+  margin-left: auto; 
+  background: #7cb342; 
+  color: #fff; 
+  border: none; 
+  padding: 12px 24px; 
+  border-radius: 24px; 
+  font-weight: 600; 
+  cursor: pointer; 
+}
+
+a.checkout-btn-link { 
+  text-decoration: none; 
+}
