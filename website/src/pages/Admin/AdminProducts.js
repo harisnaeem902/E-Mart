@@ -185,7 +185,7 @@ function AdminProducts() {
         <input type="number" step="0.01" name="price" placeholder="Price (current/sale price)" value={formData.price} onChange={handleChange} required />
         <input type="number" step="0.01" name="oldPrice" placeholder="Old Price (optional)" value={formData.oldPrice} onChange={handleChange} />
         <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} />
-        
+
         <label className="checkbox-label" style={{ display: "flex", alignItems: "center", gap: "8px", margin: "10px 0" }}>
           <input
             type="checkbox"
@@ -214,14 +214,14 @@ function AdminProducts() {
       <div className="admin-search-box">
         <input
           type="text"
-          placeholder="🔍 Search products by name or category..."
+          placeholder="Search products by name or category..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="admin-search-input"
         />
         {searchQuery && (
           <button className="clear-search-btn" onClick={() => setSearchQuery("")}>
-            ✕ Clear
+            Clear
           </button>
         )}
       </div>
@@ -266,7 +266,7 @@ function AdminProducts() {
                 <input type="number" step="0.01" name="price" value={editData.price} onChange={handleEditChange} required />
                 <input type="number" step="0.01" name="oldPrice" placeholder="Old Price" value={editData.oldPrice} onChange={handleEditChange} />
                 <textarea name="description" value={editData.description} onChange={handleEditChange} />
-                
+
                 <label className="checkbox-label" style={{ display: "flex", alignItems: "center", gap: "8px", margin: "10px 0" }}>
                   <input
                     type="checkbox"
@@ -310,21 +310,19 @@ function AdminProducts() {
                     )}
                   </span>
                 </div>
-                
-                <button 
+
+                <button
+                  className={p.isOutOfStock ? "admin-action-btn admin-btn-restock" : "admin-action-btn admin-btn-outofstock"}
                   onClick={() => handleToggleStock(p)}
-                  style={{ 
-                    backgroundColor: p.isOutOfStock ? "#22c55e" : "#eab308", 
-                    color: "#ffffff",
-                    fontWeight: "600"
-                  }}
                 >
                   {p.isOutOfStock ? "Restock Item" : "Out of Stock"}
                 </button>
 
-                <button onClick={() => startEdit(p)}>Edit</button>
-                {p.onSale && <button onClick={() => handleRemoveSale(p._id)}>Remove Sale</button>}
-                <button onClick={() => handleDelete(p._id)}>Delete</button>
+                <button className="admin-action-btn admin-btn-edit" onClick={() => startEdit(p)}>Edit</button>
+                {p.onSale && (
+                  <button className="admin-action-btn admin-btn-removesale" onClick={() => handleRemoveSale(p._id)}>Remove Sale</button>
+                )}
+                <button className="admin-action-btn admin-btn-delete" onClick={() => handleDelete(p._id)}>Delete</button>
               </div>
             )
           )

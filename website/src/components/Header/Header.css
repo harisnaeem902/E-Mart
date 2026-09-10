@@ -368,3 +368,5 @@
   color: #aaa;
   font-size: 12px;
 }
+.header-icon { font-size: 20px; line-height: 1; }
+.action-icon-link { position: relative; display: inline-flex; align-items: center; }

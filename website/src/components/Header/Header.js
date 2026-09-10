@@ -166,12 +166,12 @@ function Header() {
           </div>
 
           <Link to="/wishlist" className="action-icon-link" title="Wishlist">
-            Wishlist
+            <span className="header-icon">&#9825;</span>
             {wishlistCount > 0 && <span className="cart-badge">{wishlistCount}</span>}
           </Link>
 
           <Link to="/cart" className="action-icon-link" title="Cart">
-            Cart
+            <span className="header-icon">&#128722;</span>
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </Link>
         </div>
