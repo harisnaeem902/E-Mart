@@ -23,7 +23,7 @@ import { CartProvider } from "./context/CartContext";
 import { ToastProvider } from "./context/ToastContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import "./App.css";
-import { Analytics } from "@vercel/analytics/react"
+
 
 function App() {
   return (
