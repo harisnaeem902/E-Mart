@@ -8,13 +8,15 @@ import "./ProductCard.css";
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { addToCart, isInCart, getCartQty, increaseQty, decreaseQty } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const { showToast } = useToast();
   const inWishlist = isInWishlist(product._id);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const isOutOfStock = product.isOutOfStock === true || product.isOutOfStock === "true";
+  const inCart = isInCart(product._id);
+  const cartQty = getCartQty(product._id);
 
   const imageList =
     product.images && product.images.length > 0
@@ -40,6 +42,16 @@ function ProductCard({ product }) {
     if (isOutOfStock) return;
     addToCart(product);
     showToast(`${product.name} added to cart`);
+  };
+
+  const handleIncrease = (e) => {
+    e.stopPropagation();
+    increaseQty(product._id);
+  };
+
+  const handleDecrease = (e) => {
+    e.stopPropagation();
+    decreaseQty(product._id);
   };
 
   const handleWishlist = (e) => {
@@ -104,13 +116,21 @@ function ProductCard({ product }) {
       </div>
 
       <div className="product-actions">
-        <button
-          className="add-to-cart"
-          onClick={handleAdd}
-          disabled={isOutOfStock}
-        >
-          {isOutOfStock ? "Out of Stock" : "Add to cart"}
-        </button>
+        {isOutOfStock ? (
+          <button className="add-to-cart" disabled>
+            Out of Stock
+          </button>
+        ) : inCart ? (
+          <div className="qty-stepper">
+            <button className="qty-btn" onClick={handleDecrease}>-</button>
+            <span className="qty-value">{cartQty}</span>
+            <button className="qty-btn" onClick={handleIncrease}>+</button>
+          </div>
+        ) : (
+          <button className="add-to-cart" onClick={handleAdd}>
+            Add to cart
+          </button>
+        )}
 
         <button
           className={inWishlist ? "icon-btn wishlist-active" : "icon-btn"}

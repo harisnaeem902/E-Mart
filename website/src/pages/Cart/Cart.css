@@ -71,3 +71,36 @@ a.checkout-btn-link {
   .cart-item img { width: 55px; height: 55px; }
   .remove-cart-btn { padding: 6px 10px; font-size: 12px; }
 }
+
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin-top: 8px;
+  width: fit-content;
+}
+.qty-btn {
+  background: #7cb342;
+  border: none;
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qty-btn:hover { background: #689f38; }
+.qty-value {
+  font-weight: 700;
+  font-size: 14px;
+  min-width: 18px;
+  text-align: center;
+  color: #1e293b;
+}

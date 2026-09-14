@@ -3,7 +3,7 @@ import { useCart } from "../../context/CartContext";
 import { imageUrl } from "../../utils/imageUrl";
 import "./Cart.css";
 function Cart() {
-  const { cartItems, removeFromCart, cartTotal } = useCart();
+  const { cartItems, removeFromCart, increaseQty, decreaseQty, cartTotal } = useCart();
   if (cartItems.length === 0) {
     return <div className="cart-page"><p>Your cart is empty.</p></div>;
   }
@@ -15,7 +15,12 @@ function Cart() {
           <img src={imageUrl(item.images && item.images.length > 0 ? item.images[0] : item.image)} alt={item.name} />
           <div className="cart-item-info">
             <h4>{item.name}</h4>
-            <p>Rs {item.price.toLocaleString()} x {item.qty}</p>
+            <p>Rs {item.price.toLocaleString()}</p>
+            <div className="qty-stepper">
+              <button className="qty-btn" onClick={() => decreaseQty(item._id)}>-</button>
+              <span className="qty-value">{item.qty}</span>
+              <button className="qty-btn" onClick={() => increaseQty(item._id)}>+</button>
+            </div>
           </div>
           <button className="remove-cart-btn" onClick={() => removeFromCart(item._id)}>
             Remove

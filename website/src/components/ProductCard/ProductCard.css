@@ -211,3 +211,42 @@
   background: #fee2e2;
   border-color: #fca5a5;
 }
+/* Quantity Stepper (shown in place of Add to Cart once item is in cart) */
+.qty-stepper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #22c55e;
+  border-radius: 8px;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.qty-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #ffffff;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.qty-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.qty-value {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  min-width: 20px;
+  text-align: center;
+}
