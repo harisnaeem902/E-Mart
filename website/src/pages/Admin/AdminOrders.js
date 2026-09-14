@@ -38,7 +38,7 @@ function AdminOrders() {
     try {
       await api.put(`/orders/${orderId}/status`, {
         status: newStatus,
-        ...extraData
+        ...extraData,
       });
       showToast(`Order status updated to ${newStatus}`);
       loadOrders();
@@ -138,6 +138,16 @@ function AdminOrders() {
             const itemList = order.orderItems || order.items || [];
             const noteText = order.cancellationNote || order.cancellationReason;
 
+            // Extract customer & shipping details cleanly
+            const addressInfo = order.customerInfo || order.shippingAddress || {};
+            const customerName = addressInfo.fullName || order.user?.name || "Guest";
+            const customerEmail = order.user?.email ? `(${order.user.email})` : "";
+            const phone = addressInfo.phone || "N/A";
+            const city = addressInfo.city || "";
+            const streetAddress = addressInfo.address || "";
+            const postalCode = addressInfo.postalCode ? `, ${addressInfo.postalCode}` : "";
+            const fullAddress = streetAddress ? `${streetAddress}, ${city}${postalCode}` : "No address provided";
+
             return (
               <div key={order._id} className="admin-order-card">
                 <div className="order-header">
@@ -150,9 +160,26 @@ function AdminOrders() {
                   </div>
                 </div>
 
-                <div className="order-customer">
-                  <strong>Customer:</strong> {order.user?.name || order.customerInfo?.fullName || "Guest"} (
-                  {order.user?.email || "N/A"})
+                <div
+                  className="order-customer"
+                  style={{
+                    lineHeight: "1.6",
+                    background: "#f8fafc",
+                    padding: "12px 14px",
+                    borderRadius: "8px",
+                    border: "1px solid #f1f5f9",
+                    marginBottom: "14px",
+                  }}
+                >
+                  <div>
+                    <strong>Customer:</strong> {customerName} {customerEmail}
+                  </div>
+                  <div>
+                    <strong>Phone:</strong> <span style={{ color: "#2563eb", fontWeight: "600" }}>{phone}</span>
+                  </div>
+                  <div>
+                    <strong>Shipping Address:</strong> {fullAddress}
+                  </div>
                 </div>
 
                 {noteText && (
@@ -176,7 +203,7 @@ function AdminOrders() {
                             display: "flex",
                             alignItems: "center",
                             gap: "12px",
-                            margin: "8px 0"
+                            margin: "8px 0",
                           }}
                         >
                           {imageSrc && (
@@ -188,7 +215,7 @@ function AdminOrders() {
                                 height: "45px",
                                 objectFit: "cover",
                                 borderRadius: "6px",
-                                border: "1px solid #e2e8f0"
+                                border: "1px solid #e2e8f0",
                               }}
                             />
                           )}
