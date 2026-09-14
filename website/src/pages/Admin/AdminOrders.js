@@ -143,10 +143,9 @@ function AdminOrders() {
             const customerName = addressInfo.fullName || order.user?.name || "Guest";
             const customerEmail = order.user?.email ? `(${order.user.email})` : "";
             const phone = addressInfo.phone || "N/A";
-            const city = addressInfo.city || "";
-            const streetAddress = addressInfo.address || "";
-            const postalCode = addressInfo.postalCode ? `, ${addressInfo.postalCode}` : "";
-            const fullAddress = streetAddress ? `${streetAddress}, ${city}${postalCode}` : "No address provided";
+            const city = addressInfo.city || "N/A";
+            const streetAddress = addressInfo.address || "No address provided";
+            const postalCode = addressInfo.postalCode ? ` (${addressInfo.postalCode})` : "";
 
             return (
               <div key={order._id} className="admin-order-card">
@@ -178,7 +177,10 @@ function AdminOrders() {
                     <strong>Phone:</strong> <span style={{ color: "#2563eb", fontWeight: "600" }}>{phone}</span>
                   </div>
                   <div>
-                    <strong>Shipping Address:</strong> {fullAddress}
+                    <strong>City:</strong> <span style={{ fontWeight: "600", color: "#0f172a" }}>{city}</span>
+                  </div>
+                  <div>
+                    <strong>Shipping Address:</strong> {streetAddress}{postalCode}
                   </div>
                 </div>
 
