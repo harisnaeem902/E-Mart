@@ -65,3 +65,9 @@
 a.checkout-btn-link { 
   text-decoration: none; 
 }
+@media (max-width: 600px) {
+  .cart-page { padding: 0 12px; margin: 20px auto; }
+  .cart-item { gap: 10px; padding: 12px 0; }
+  .cart-item img { width: 55px; height: 55px; }
+  .remove-cart-btn { padding: 6px 10px; font-size: 12px; }
+}

@@ -65,3 +65,8 @@
   color: #fff; 
   border-color: #7cb342; 
 }
+@media (max-width: 600px) {
+  .category-slider { padding: 16px 12px; gap: 6px; }
+  .category-card { min-width: 120px; padding: 10px 14px; }
+  .slider-arrow { width: 30px; height: 30px; font-size: 16px; }
+}

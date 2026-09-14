@@ -1,4 +1,4 @@
-﻿.checkout-page { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+.checkout-page { max-width: 900px; margin: 40px auto; padding: 0 20px; }
 .checkout-layout { display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap; }
 
 .checkout-form {
@@ -58,4 +58,9 @@
   font-weight: 700;
   margin-top: 12px;
   font-size: 16px;
+}
+
+@media (max-width: 700px) {
+  .checkout-layout { flex-direction: column; }
+  .order-summary { width: 100%; box-sizing: border-box; }
 }
