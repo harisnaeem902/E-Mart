@@ -2,7 +2,7 @@ const Product = require("../models/Product");
 
 exports.createProduct = async (req, res) => {
   try {
-    const { name, category, price, description, oldPrice, isOutOfStock } = req.body;
+    const { name, category, price, description, oldPrice, isOutOfStock, stock } = req.body;
 
     let uploadedImages = [];
     if (req.files && req.files.length > 0) {
@@ -24,6 +24,10 @@ exports.createProduct = async (req, res) => {
       salePercent = Math.round(((parsedOldPrice - newPrice) / parsedOldPrice) * 100);
     }
 
+    const parsedStock = stock !== undefined && stock !== "" ? parseInt(stock, 10) : 0;
+    const manualOutOfStock = isOutOfStock === "true" || isOutOfStock === true;
+    const finalOutOfStock = manualOutOfStock || parsedStock <= 0;
+
     const product = await Product.create({
       name,
       category,
@@ -35,7 +39,8 @@ exports.createProduct = async (req, res) => {
       onSale,
       oldPrice: parsedOldPrice,
       salePercent,
-      isOutOfStock: isOutOfStock === "true" || isOutOfStock === true,
+      stock: parsedStock,
+      isOutOfStock: finalOutOfStock,
     });
 
     res.status(201).json(product);
@@ -46,7 +51,7 @@ exports.createProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   try {
-    const { name, category, price, description, oldPrice, removeSale, isOutOfStock } = req.body;
+    const { name, category, price, description, oldPrice, removeSale, isOutOfStock, stock } = req.body;
     const product = await Product.findById(req.params.id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
@@ -65,9 +70,12 @@ exports.updateProduct = async (req, res) => {
       product.images = [req.file.path];
     }
 
-    if (isOutOfStock !== undefined) {
-      product.isOutOfStock = isOutOfStock === "true" || isOutOfStock === true;
+    if (stock !== undefined && stock !== "") {
+      product.stock = parseInt(stock, 10);
     }
+
+    const manualOutOfStock = isOutOfStock === "true" || isOutOfStock === true;
+    product.isOutOfStock = manualOutOfStock || product.stock <= 0;
 
     const effectivePrice = price ? parseFloat(price) : product.price;
     if (price) product.price = effectivePrice;

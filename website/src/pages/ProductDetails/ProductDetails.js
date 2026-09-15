@@ -4,6 +4,7 @@ import api from "../../services/api";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 import { useToast } from "../../context/ToastContext";
+import { imageUrl } from "../../utils/imageUrl";
 import "./ProductDetails.css";
 
 function ProductDetails() {
@@ -59,12 +60,6 @@ function ProductDetails() {
   const inWishlist = isInWishlist(product._id);
   const imageList = product.images && product.images.length > 0 ? product.images : [product.image];
 
-  const getImageUrl = (path) => {
-    if (!path) return "";
-    if (path.startsWith("http")) return path;
-    return `http://localhost:5000${path}`;
-  };
-
   const handleAddToCart = () => {
     if (isOutOfStock) return;
     addToCart(product);
@@ -82,26 +77,24 @@ function ProductDetails() {
 
   return (
     <div className="product-details-container">
-      {/* Image Zoom Modal */}
       {isZoomOpen && (
         <div className="image-zoom-overlay" onClick={() => setIsZoomOpen(false)}>
           <div className="image-zoom-content" onClick={(e) => e.stopPropagation()}>
             <span className="close-zoom-btn" onClick={() => setIsZoomOpen(false)}>&times;</span>
-            <img src={getImageUrl(selectedImg)} alt={product.name} className="zoomed-image" />
+            <img src={imageUrl(selectedImg)} alt={product.name} className="zoomed-image" />
           </div>
         </div>
       )}
 
       <div className="product-details-layout">
-        {/* Left Side: Images */}
         <div className="product-images-section">
           <div className="main-image-wrapper" onClick={() => setIsZoomOpen(true)}>
             <img
-              src={getImageUrl(selectedImg)}
+              src={imageUrl(selectedImg)}
               alt={product.name}
               className="main-detail-image"
             />
-            <span className="zoom-hint-badge">🔍 Click to enlarge</span>
+            <span className="zoom-hint-badge">Click to enlarge</span>
           </div>
 
           {imageList.length > 1 && (
@@ -109,7 +102,7 @@ function ProductDetails() {
               {imageList.map((img, idx) => (
                 <img
                   key={idx}
-                  src={getImageUrl(img)}
+                  src={imageUrl(img)}
                   alt={`Thumbnail ${idx + 1}`}
                   className={`thumbnail-img ${selectedImg === img ? "active" : ""}`}
                   onClick={() => setSelectedImg(img)}
@@ -119,7 +112,6 @@ function ProductDetails() {
           )}
         </div>
 
-        {/* Right Side: Details Info */}
         <div className="product-info-section">
           <p className="detail-category">{product.category}</p>
           <h1 className="detail-title">{product.name}</h1>
@@ -139,6 +131,11 @@ function ProductDetails() {
             <span className={isOutOfStock ? "status-out" : "status-in"}>
               {isOutOfStock ? "Out of Stock" : "In Stock"}
             </span>
+            {!isOutOfStock && (
+              <span className={product.stock <= 5 ? "stock-info stock-low" : "stock-info"}>
+                {" "}({product.stock} in stock)
+              </span>
+            )}
           </div>
 
           <div className="detail-description-box">
@@ -163,7 +160,7 @@ function ProductDetails() {
               className={`detail-wishlist-btn ${inWishlist ? "active" : ""}`}
               onClick={handleToggleWishlist}
             >
-              {inWishlist ? "♥ In Wishlist" : "♡ Add to Wishlist"}
+              {inWishlist ? "\u2665 In Wishlist" : "\u2661 Add to Wishlist"}
             </button>
           </div>
         </div>

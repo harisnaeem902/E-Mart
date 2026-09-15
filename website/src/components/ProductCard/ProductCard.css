@@ -250,3 +250,14 @@
   min-width: 20px;
   text-align: center;
 }
+
+.stock-low {
+  color: #ea580c;
+  font-weight: 700;
+  animation: stockPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes stockPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

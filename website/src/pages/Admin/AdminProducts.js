@@ -9,10 +9,10 @@ function AdminProducts() {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [formData, setFormData] = useState({ name: "", category: "", price: "", description: "", oldPrice: "", isOutOfStock: false });
+  const [formData, setFormData] = useState({ name: "", category: "", price: "", description: "", oldPrice: "", isOutOfStock: false, stock: "" });
   const [imageFiles, setImageFiles] = useState([]);
   const [editingId, setEditingId] = useState(null);
-  const [editData, setEditData] = useState({ name: "", category: "", price: "", description: "", oldPrice: "", isOutOfStock: false });
+  const [editData, setEditData] = useState({ name: "", category: "", price: "", description: "", oldPrice: "", isOutOfStock: false, stock: "" });
   const [editImageFiles, setEditImageFiles] = useState([]);
   const { showToast } = useToast();
 
@@ -51,6 +51,7 @@ function AdminProducts() {
     data.append("description", formData.description);
     if (formData.oldPrice) data.append("oldPrice", formData.oldPrice);
     data.append("isOutOfStock", formData.isOutOfStock ? "true" : "false");
+    data.append("stock", formData.stock || "0");
 
     for (let i = 0; i < imageFiles.length; i++) {
       data.append("images", imageFiles[i]);
@@ -61,7 +62,7 @@ function AdminProducts() {
         headers: { "Content-Type": "multipart/form-data" },
       });
       showToast("Product added successfully");
-      setFormData({ name: "", category: "", price: "", description: "", oldPrice: "", isOutOfStock: false });
+      setFormData({ name: "", category: "", price: "", description: "", oldPrice: "", isOutOfStock: false, stock: "" });
       setImageFiles([]);
       loadProducts();
     } catch (err) {
@@ -88,6 +89,7 @@ function AdminProducts() {
       description: product.description || "",
       oldPrice: product.oldPrice || "",
       isOutOfStock: Boolean(product.isOutOfStock),
+      stock: product.stock !== undefined ? String(product.stock) : "0",
     });
     setEditImageFiles([]);
   };
@@ -111,6 +113,7 @@ function AdminProducts() {
     data.append("description", editData.description);
     if (editData.oldPrice) data.append("oldPrice", editData.oldPrice);
     data.append("isOutOfStock", editData.isOutOfStock ? "true" : "false");
+    data.append("stock", editData.stock || "0");
 
     if (editImageFiles.length > 0) {
       for (let i = 0; i < editImageFiles.length; i++) {
@@ -134,6 +137,9 @@ function AdminProducts() {
     const nextStatus = !product.isOutOfStock;
     const data = new FormData();
     data.append("isOutOfStock", nextStatus ? "true" : "false");
+    if (!nextStatus && (!product.stock || product.stock <= 0)) {
+      data.append("stock", "1");
+    }
 
     try {
       await api.put(`/products/${product._id}`, data, {
@@ -184,6 +190,7 @@ function AdminProducts() {
         </select>
         <input type="number" step="0.01" name="price" placeholder="Price (current/sale price)" value={formData.price} onChange={handleChange} required />
         <input type="number" step="0.01" name="oldPrice" placeholder="Old Price (optional)" value={formData.oldPrice} onChange={handleChange} />
+        <input type="number" min="0" name="stock" placeholder="Stock Quantity" value={formData.stock} onChange={handleChange} required />
         <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} />
 
         <label className="checkbox-label" style={{ display: "flex", alignItems: "center", gap: "8px", margin: "10px 0" }}>
@@ -193,7 +200,7 @@ function AdminProducts() {
             checked={formData.isOutOfStock}
             onChange={handleChange}
           />
-          Mark as Out of Stock
+          Mark as Out of Stock (overrides quantity)
         </label>
 
         <label style={{ fontSize: "13px", fontWeight: "600", color: "#475569" }}>
@@ -265,6 +272,7 @@ function AdminProducts() {
                 </select>
                 <input type="number" step="0.01" name="price" value={editData.price} onChange={handleEditChange} required />
                 <input type="number" step="0.01" name="oldPrice" placeholder="Old Price" value={editData.oldPrice} onChange={handleEditChange} />
+                <input type="number" min="0" name="stock" placeholder="Stock Quantity" value={editData.stock} onChange={handleEditChange} required />
                 <textarea name="description" value={editData.description} onChange={handleEditChange} />
 
                 <label className="checkbox-label" style={{ display: "flex", alignItems: "center", gap: "8px", margin: "10px 0" }}>
@@ -274,7 +282,7 @@ function AdminProducts() {
                     checked={editData.isOutOfStock}
                     onChange={handleEditChange}
                   />
-                  Out of Stock
+                  Out of Stock (overrides quantity)
                 </label>
 
                 <input
@@ -295,6 +303,7 @@ function AdminProducts() {
                   <strong>{p.name}</strong>
                   <span>
                     {p.category} - Rs {p.price.toLocaleString()}
+                    {" - "}Stock: {p.stock ?? 0}
                     {p.images && p.images.length > 1 && (
                       <span style={{ color: "#2563eb", fontWeight: "bold", marginLeft: "8px" }}>
                         ({p.images.length} images)

@@ -16,10 +16,19 @@ function Cart() {
           <div className="cart-item-info">
             <h4>{item.name}</h4>
             <p>Rs {item.price.toLocaleString()}</p>
-            <div className="qty-stepper">
+                        <div className="qty-stepper">
               <button className="qty-btn" onClick={() => decreaseQty(item._id)}>-</button>
               <span className="qty-value">{item.qty}</span>
-              <button className="qty-btn" onClick={() => increaseQty(item._id)}>+</button>
+              <button
+                className="qty-btn"
+                onClick={() => {
+                  const maxStock = item.stock ?? 0;
+                  if (item.qty + 1 > maxStock) return;
+                  increaseQty(item._id);
+                }}
+              >
+                +
+              </button>
             </div>
           </div>
           <button className="remove-cart-btn" onClick={() => removeFromCart(item._id)}>

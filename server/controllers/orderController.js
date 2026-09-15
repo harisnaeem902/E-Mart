@@ -1,4 +1,5 @@
 const Order = require("../models/Order");
+const Product = require("../models/Product");
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -23,6 +24,38 @@ const createOrder = async (req, res) => {
 
     if (!rawItems || !Array.isArray(rawItems) || rawItems.length === 0) {
       return res.status(400).json({ message: "No order items provided" });
+    }
+
+    // Validate stock availability for every item BEFORE creating the order
+    const stockCheckedItems = [];
+    for (const item of rawItems) {
+      const productId = item.product || item._id || item.id;
+      const requestedQty = Number(item.qty || item.quantity || 1);
+
+      const product = await Product.findById(productId);
+      if (!product) {
+        return res.status(400).json({ message: `Product "${item.name || "unknown"}" no longer exists` });
+      }
+      if (product.isOutOfStock || product.stock <= 0) {
+        return res.status(400).json({ message: `${product.name} is currently out of stock` });
+      }
+      if (requestedQty > product.stock) {
+        return res.status(400).json({
+          message: `Only ${product.stock} piece(s) of ${product.name} available`,
+        });
+      }
+
+      stockCheckedItems.push({ product, requestedQty, item });
+    }
+
+    // All items passed validation — deduct stock now
+    for (const { product, requestedQty } of stockCheckedItems) {
+      product.stock -= requestedQty;
+      if (product.stock <= 0) {
+        product.stock = 0;
+        product.isOutOfStock = true;
+      }
+      await product.save();
     }
 
     const formattedOrderItems = rawItems.map((item) => ({
@@ -129,9 +162,22 @@ const updateOrderStatus = async (req, res) => {
       return res.status(403).json({ message: "Not authorized to update this order" });
     }
 
-    // Non-admin users are only allowed to request cancellation or cancel pending orders
     if (!isAdmin && status !== "Cancelled" && status !== "Cancel Pending") {
       return res.status(400).json({ message: "Users are only allowed to cancel orders" });
+    }
+
+    // If an order is being cancelled, restock the items
+    if (status === "Cancelled" && order.status !== "Cancelled") {
+      const orderItemsList = order.orderItems || order.items || [];
+      for (const item of orderItemsList) {
+        if (!item.product) continue;
+        const product = await Product.findById(item.product);
+        if (product) {
+          product.stock += item.qty || item.quantity || 1;
+          if (product.stock > 0) product.isOutOfStock = false;
+          await product.save();
+        }
+      }
     }
 
     const updateFields = {};

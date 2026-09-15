@@ -46,6 +46,11 @@ function ProductCard({ product }) {
 
   const handleIncrease = (e) => {
     e.stopPropagation();
+    const maxStock = product.stock ?? 0;
+    if (cartQty + 1 > maxStock) {
+      showToast(`Only ${maxStock} piece(s) available`, "error");
+      return;
+    }
     increaseQty(product._id);
   };
 
@@ -114,6 +119,12 @@ function ProductCard({ product }) {
         )}
         <span className="product-price">Rs {product.price.toLocaleString()}</span>
       </div>
+
+      {!isOutOfStock && (
+        <p className={product.stock <= 5 ? "stock-info stock-low" : "stock-info"}>
+          {product.stock} in stock
+        </p>
+      )}
 
       <div className="product-actions">
         {isOutOfStock ? (

@@ -5,7 +5,6 @@ const productSchema = new mongoose.Schema(
     name: { type: String, required: true },
     category: { type: String, required: true },
     price: { type: Number, required: true },
-    // Primary single image fallback + Array of multiple images
     image: { type: String },
     images: [{ type: String }],
     description: { type: String },
@@ -14,6 +13,7 @@ const productSchema = new mongoose.Schema(
     oldPrice: { type: Number, default: null },
     salePercent: { type: Number, default: 0 },
     isOutOfStock: { type: Boolean, default: false },
+    stock: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
