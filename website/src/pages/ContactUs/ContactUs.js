@@ -30,10 +30,10 @@ function ContactUs() {
               <h3>Phone Numbers</h3>
               <div className="phone-links-group">
                 <a href="tel:03026742902" className="phone-link-btn">
-                  0302-6742902
+                  (+92) 302-6742902
                 </a>
                 <a href="tel:03116742902" className="phone-link-btn">
-                  0311-6742902
+                  (+92) 311-6742902
                 </a>
               </div>
             </div>
