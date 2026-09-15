@@ -74,19 +74,48 @@ function Header() {
 
   return (
     <header className="site-header">
+      {/* Top Announcement Bar with Scrolling News Ticker */}
       <div className="top-bar">
-        <span>Welcome to E-Mart</span>
-                <div className="top-bar-right">
-          <a href="https://maps.app.goo.gl/cMgF17vJ4rz9GMUE8" target="_blank" rel="noopener noreferrer" className="location-link">Store location</a>
+        <div className="ticker-wrapper">
+          <div className="ticker-text">
+            🔥 Welcome to E-Mart — Your One-Stop Shop for Electronics & Home Appliances! Discover Quality Products, Amazing Deals & the Latest Technology to Make Your Home Smarter, Easier & More Comfortable! 
+          </div>
+        </div>
+
+        <div className="top-bar-right">
+          <a
+            href="https://maps.app.goo.gl/cMgF17vJ4rz9GMUE8"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="location-link"
+          >
+            <svg
+              className="location-pin-icon"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            Store location
+          </a>
           <span>(+92) - 302-6742902</span>
         </div>
       </div>
 
+      {/* Main Header Container */}
       <div className="main-header">
         <Link to="/" className="logo">
           E-Mart
         </Link>
 
+        {/* Integrated Pill Search Bar with SVG Glass Icon */}
         <div className="search-box" ref={searchBoxRef}>
           <form className="search-bar" onSubmit={handleSearch}>
             <input
@@ -96,9 +125,24 @@ function Header() {
               onChange={handleInputChange}
               onFocus={() => searchTerm && setShowSuggestions(true)}
             />
-            <button type="submit">Search</button>
+            <button type="submit" aria-label="Search">
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
           </form>
 
+          {/* Live Search Suggestions Dropdown */}
           {showSuggestions && suggestions.length > 0 && (
             <div className="search-suggestions">
               {suggestions.map((p) => (
@@ -124,7 +168,9 @@ function Header() {
           )}
         </div>
 
+        {/* Action Controls Area */}
         <div className="header-actions">
+          {/* Account Dropdown Wrapper */}
           <div className="dropdown-wrapper">
             <button className="dropdown-trigger-btn">
               Account: {user ? user.name : "Account"} <span className="arrow">v</span>
@@ -165,11 +211,13 @@ function Header() {
             </div>
           </div>
 
+          {/* Wishlist Link */}
           <Link to="/wishlist" className="action-icon-link" title="Wishlist">
             <span className="header-icon">&#9825;</span>
             {wishlistCount > 0 && <span className="cart-badge">{wishlistCount}</span>}
           </Link>
 
+          {/* Cart Link */}
           <Link to="/cart" className="action-icon-link" title="Cart">
             <span className="header-icon">&#128722;</span>
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
@@ -177,6 +225,7 @@ function Header() {
         </div>
       </div>
 
+      {/* Main Navigation Bar */}
       <nav className="navbar">
         <ul>
           <li>

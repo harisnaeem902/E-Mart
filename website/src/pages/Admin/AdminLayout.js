@@ -26,7 +26,7 @@ function AdminLayout() {
             end
             className={({ isActive }) => (isActive ? "active" : "")}
           >
-            Overview
+          Overview
           </NavLink>
           <NavLink
             to="/admin/products"
