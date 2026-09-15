@@ -121,7 +121,7 @@ function ProductCard({ product }) {
       </div>
 
       {!isOutOfStock && (
-        <p className={product.stock <= 5 ? "stock-info stock-low" : "stock-info"}>
+        <p className="stock-info stock-low">
           {product.stock} in stock
         </p>
       )}

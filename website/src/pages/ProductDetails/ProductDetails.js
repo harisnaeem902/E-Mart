@@ -131,8 +131,8 @@ function ProductDetails() {
             <span className={isOutOfStock ? "status-out" : "status-in"}>
               {isOutOfStock ? "Out of Stock" : "In Stock"}
             </span>
-            {!isOutOfStock && (
-              <span className={product.stock <= 5 ? "stock-info stock-low" : "stock-info"}>
+           {!isOutOfStock && (
+              <span className="stock-info stock-low">
                 {" "}({product.stock} in stock)
               </span>
             )}
