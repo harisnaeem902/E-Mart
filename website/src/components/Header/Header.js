@@ -78,7 +78,7 @@ function Header() {
       <div className="top-bar">
         <div className="ticker-wrapper">
           <div className="ticker-text">
-            🔥 Welcome to E-Mart — Your One-Stop Shop for Electronics & Home Appliances! Discover Quality Products, Amazing Deals & the Latest Technology to Make Your Home Smarter, Easier & More Comfortable! 
+            🔥 Welcome to E-Mart — Your One-Stop Shop for Electronics & Home Appliances! Discover Quality Products, Amazing Deals & the Latest Technology to Make Your Home Smarter, Easier & More Comfortable ✨
           </div>
         </div>
 
@@ -90,7 +90,7 @@ function Header() {
             className="location-link"
           >
             <svg
-              className="location-pin-icon"
+              className="top-bar-icon"
               width="14"
               height="14"
               viewBox="0 0 24 24"
@@ -105,7 +105,24 @@ function Header() {
             </svg>
             Store location
           </a>
-          <span>(+92) - 302-6742902</span>
+
+          {/* Phone Link with Phone Icon */}
+          <a href="tel:+923026742902" className="phone-link">
+            <svg
+              className="top-bar-icon"
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            (+92) - 302-6742902
+          </a>
         </div>
       </div>
 
