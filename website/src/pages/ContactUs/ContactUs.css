@@ -1,55 +1,141 @@
+/* Page Container */
 .contact-page {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background-color: #fafbf8;
+  min-height: 60vh;
 }
+
+/* Main Card */
 .contact-card {
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
   padding: 40px;
+  max-width: 650px;
+  width: 100%;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
 }
-.contact-card h1 {
-  font-size: 26px;
+
+.contact-title {
+  font-size: 28px;
+  font-weight: 800;
   color: #7cb342;
-  margin: 0 0 12px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
 }
+
 .contact-intro {
   font-size: 15px;
   color: #64748b;
-  margin-bottom: 28px;
-}
-.contact-info-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 16px 0;
-  border-top: 1px solid #f1f5f9;
-}
-.contact-label {
-  min-width: 130px;
-  font-weight: 700;
-  color: #0f172a;
-  font-size: 14px;
-}
-.contact-value {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.contact-value a {
-  color: #2563eb;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-}
-.contact-value a:hover {
-  text-decoration: underline;
+  margin-bottom: 32px;
+  line-height: 1.6;
 }
 
-@media (max-width: 600px) {
-  .contact-card { padding: 24px; }
-  .contact-card h1 { font-size: 22px; }
-  .contact-info-row { flex-direction: column; gap: 6px; }
-  .contact-label { min-width: 0; }
+/* Info Cards Layout */
+.contact-details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background-color: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+.contact-info-card:hover {
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 12px rgba(124, 179, 66, 0.08);
+  transform: translateY(-2px);
+}
+
+/* SVG Icon Badge */
+.contact-icon-wrapper {
+  background-color: #e8f3dd;
+  color: #7cb342;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-text-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* Phone Links Group */
+.phone-links-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.phone-link-btn {
+  display: inline-block;
+  color: #475569;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 6px 12px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.phone-link-btn:hover {
+  color: #7cb342;
+  border-color: #7cb342;
+  background-color: #f7faf3;
+}
+
+/* Google Maps Link Button */
+.map-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  background-color: #7cb342;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.map-link-btn:hover {
+  background-color: #689f38;
+}
+
+/* Responsive */
+@media (max-width: 580px) {
+  .contact-card {
+    padding: 24px;
+  }
+  .contact-title {
+    font-size: 24px;
+  }
+  .contact-info-card {
+    flex-direction: column;
+    gap: 12px;
+  }
 }
