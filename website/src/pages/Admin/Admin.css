@@ -1,4 +1,7 @@
-/* Admin Layout & Sidebar */
+/* ========================================================= */
+/* ADMIN LAYOUT & SIDEBAR TOGGLE SYSTEM                     */
+/* ========================================================= */
+
 .admin-layout {
   display: flex;
   min-height: 75vh;
@@ -11,11 +14,57 @@
   border-right: 1px solid #eee;
   padding: 30px 20px;
   background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.admin-sidebar h3 {
+/* Collapsed State for Sidebar */
+.admin-sidebar.collapsed {
+  width: 0;
+  padding: 30px 0;
+  border-right: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Sidebar Top Header & Internal Close Button */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.sidebar-header h3 {
+  margin: 0;
   font-size: 17px;
+  font-weight: 700;
+  color: #333;
+}
+
+.icon-toggle-btn {
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.icon-toggle-btn:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+/* Sidebar Navigation Links Container */
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
 }
 
 .admin-sidebar a {
@@ -26,6 +75,8 @@
   text-decoration: none;
   font-size: 14px;
   margin-bottom: 6px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
 .admin-sidebar a:hover,
@@ -35,10 +86,35 @@
   font-weight: 600;
 }
 
+/* Main Content Container & Open Button */
 .admin-content {
   flex: 1;
   padding: 30px 50px;
   max-width: 900px;
+  transition: padding 0.3s ease;
+}
+
+/* Clean Menu Trigger Button when Sidebar is Closed */
+.open-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.open-toggle-btn:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
 }
 
 /* Dashboard Overview Stats */
