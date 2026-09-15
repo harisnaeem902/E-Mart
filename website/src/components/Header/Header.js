@@ -78,7 +78,7 @@ function Header() {
       <div className="top-bar">
         <div className="ticker-wrapper">
           <div className="ticker-text">
-            🔥 Welcome to E-Mart — Your One-Stop Shop for Electronics & Home Appliances! Discover Quality Products, Amazing Deals & the Latest Technology to Make Your Home Smarter, Easier & More Comfortable ✨
+            🔥 Welcome to E-Mart — Your One-Stop Shop for Electronics & Home Appliances! Discover Quality Products, Amazing Deals & the Latest Technology to Make Your Home Smarter, Easier & More Comfortable 
           </div>
         </div>
 
