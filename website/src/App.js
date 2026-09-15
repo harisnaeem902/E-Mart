@@ -23,6 +23,7 @@ import { CartProvider } from "./context/CartContext";
 import { ToastProvider } from "./context/ToastContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import AboutUs from "./pages/AboutUs/AboutUs";
+import ContactUs from "./pages/ContactUs/ContactUs";
 import "./App.css";
 
 
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/search" element={<Search />} />
                 <Route path="/wishlist" element={<Wishlist />} />
 		<Route path="/about" element={<AboutUs />} />
+		<Route path="/contact" element={<ContactUs />} />
                 <Route path="/category/:categoryName" element={<CategoryPage />} />
                 <Route path="/product/:id" element={<ProductDetails />} />
 
