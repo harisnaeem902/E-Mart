@@ -1,0 +1,46 @@
+.about-page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+.about-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 40px;
+}
+.about-card h1 {
+  font-size: 26px;
+  color: #7cb342;
+  margin: 0 0 20px;
+}
+.about-card p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #334155;
+  margin-bottom: 18px;
+}
+.about-thanks {
+  font-style: italic;
+  color: #475569;
+}
+.about-signature {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+}
+.about-signature strong {
+  font-size: 16px;
+  color: #0f172a;
+}
+.about-signature span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+@media (max-width: 600px) {
+  .about-card { padding: 24px; }
+  .about-card h1 { font-size: 22px; }
+}

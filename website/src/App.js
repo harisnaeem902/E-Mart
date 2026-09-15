@@ -22,6 +22,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { ToastProvider } from "./context/ToastContext";
 import { WishlistProvider } from "./context/WishlistContext";
+import AboutUs from "./pages/AboutUs/AboutUs";
 import "./App.css";
 
 
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/sale" element={<Sale />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/wishlist" element={<Wishlist />} />
+		<Route path="/about" element={<AboutUs />} />
                 <Route path="/category/:categoryName" element={<CategoryPage />} />
                 <Route path="/product/:id" element={<ProductDetails />} />
 
