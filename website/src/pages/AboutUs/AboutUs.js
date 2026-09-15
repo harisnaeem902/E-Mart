@@ -6,16 +6,11 @@ function AboutUs() {
       <div className="about-card">
         <h1>Our Mission</h1>
         <p>
-          At E-Mart, our mission is to enrich the lives of our customers by
-          providing top-quality home appliances and exceptional service. Over
-          the past 8 years of proven excellence, we have proudly served our
-          community, building a strong reputation founded on trust,
-          transparency, and an unwavering commitment to customer satisfaction.
-          Every day, we strive to exceed expectations, uphold high standards
-          of quality, and foster lasting relationships with the people we
-          serve. Our team is dedicated to guiding you toward the perfect
-          choices for your home by offering honest advice, competitive
-          pricing, and dependable support at every step.
+          At E-Mart, our mission is to enrich the lives of our customers by providing top-quality home appliances and exceptional service. Over
+          the past 8 years of proven excellence, we have proudly served our community, building a strong reputation founded on trust,transparency, 
+          and an unwavering commitment to customer satisfaction.Every day, we strive to exceed expectations, uphold high standardsof quality, and 
+          foster lasting relationships with the people we serve. Our team is dedicated to guiding you toward the perfect choices for your home by 
+          offering honest advice, competitive pricing, and dependable support at every step.
         </p>
         <p>
           For us, business is not just about transactions, it's about trust.
