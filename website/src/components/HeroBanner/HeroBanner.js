@@ -44,7 +44,7 @@ function HeroBanner() {
       <div className="hero-overlay" />
 
       <div className="hero-content">
-        <h1>Order your favourite tech here</h1>
+        <h1>Order Your Favourite Tech Here</h1>
         <p>
           Choose from a wide range of appliances and gadgets, all handpicked for
           quality. Our mission is to upgrade your lifestyle and deliver top-tier
