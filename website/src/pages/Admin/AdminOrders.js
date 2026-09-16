@@ -7,6 +7,7 @@ import "./Admin.css";
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
   const [cancelModalOrderId, setCancelModalOrderId] = useState(null);
   const [adminCancelNote, setAdminCancelNote] = useState("");
   const { showToast } = useToast();
@@ -102,9 +103,51 @@ function AdminOrders() {
     return Number(amount).toLocaleString();
   };
 
+  // Filter orders by Full Mongo ID, Short User ID (last 6 chars), Customer Name, Email, or Phone
+  const filteredOrders = orders.filter((order) => {
+    const term = searchTerm.trim().toLowerCase().replace("#", "");
+    if (!term) return true;
+
+    const fullId = (order._id || "").toLowerCase();
+    const shortId = fullId.slice(-6); // Extracts the 6-character short ID shown to users
+
+    const addressInfo = order.customerInfo || order.shippingAddress || {};
+    const customerName = (addressInfo.fullName || order.user?.name || "").toLowerCase();
+    const customerEmail = (order.user?.email || "").toLowerCase();
+    const phone = (addressInfo.phone || "").toLowerCase();
+
+    return (
+      fullId.includes(term) ||
+      shortId.includes(term) ||
+      customerName.includes(term) ||
+      customerEmail.includes(term) ||
+      phone.includes(term)
+    );
+  });
+
   return (
     <div>
       <h2>Orders Management</h2>
+
+      {/* Search Input Box */}
+      <div className="admin-search-box">
+        <input
+          type="text"
+          className="admin-search-input"
+          placeholder="Search by Order ID (#D5EAE9 or full ID), Customer Name, Email, or Phone..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        {searchTerm && (
+          <button
+            type="button"
+            className="clear-search-btn"
+            onClick={() => setSearchTerm("")}
+          >
+            Clear
+          </button>
+        )}
+      </div>
 
       {cancelModalOrderId && (
         <div className="cancel-modal-overlay">
@@ -130,9 +173,13 @@ function AdminOrders() {
         <p style={{ textAlign: "center", padding: "20px", color: "#64748b" }}>
           No orders placed yet.
         </p>
+      ) : filteredOrders.length === 0 ? (
+        <p style={{ textAlign: "center", padding: "20px", color: "#64748b" }}>
+          No orders found matching "{searchTerm}".
+        </p>
       ) : (
         <div className="admin-order-list">
-          {orders.map((order) => {
+          {filteredOrders.map((order) => {
             const currentStatus = order.status || "Pending";
             const statusClass = `status-${currentStatus.toLowerCase().replace(/\s+/g, '-')}`;
             const itemList = order.orderItems || order.items || [];
@@ -147,10 +194,16 @@ function AdminOrders() {
             const streetAddress = addressInfo.address || "No address provided";
             const postalCode = addressInfo.postalCode ? ` (${addressInfo.postalCode})` : "";
 
+            // Compute Short ID for Display
+            const shortOrderId = order._id ? order._id.slice(-6).toUpperCase() : "";
+
             return (
               <div key={order._id} className="admin-order-card">
                 <div className="order-header">
-                  <span className="order-id">Order ID: #{order._id}</span>
+                  <div>
+                    <span className="order-id">Order ID: #{order._id}</span>
+                    <span className="user-short-id"> (User ID: #{shortOrderId})</span>
+                  </div>
                   <div className="status-container">
                     <span className="status-label-text">Status:</span>
                     <span className={`order-status ${statusClass}`}>

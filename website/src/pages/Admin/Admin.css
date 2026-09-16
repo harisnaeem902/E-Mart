@@ -508,6 +508,14 @@
   color: #0f172a;
 }
 
+/* User Short ID Badge Tag */
+.user-short-id {
+  font-size: 13px;
+  color: #7cb342;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
 .status-container {
   display: flex;
   align-items: center;
