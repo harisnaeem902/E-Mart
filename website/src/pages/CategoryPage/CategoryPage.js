@@ -7,14 +7,35 @@ function CategoryPage() {
   const { categoryName } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const displayTitle = categoryName
+    ? categoryName
+        .split(",")
+        .map((c) => c.trim())
+        .join(", ")
+    : "";
 
   useEffect(() => {
-    api.get("/products")
+    setLoading(true);
+    setError(null);
+
+    // Compute requestedCategories inside useEffect to fix missing dependency warning
+    const requestedCategories = categoryName
+      ? categoryName.split(",").map((c) => c.trim().toLowerCase())
+      : [];
+
+    api
+      .get("/products")
       .then((res) => {
-        const filtered = res.data.filter(
-          (p) => p.category.toLowerCase() === categoryName.toLowerCase()
+        const filtered = res.data.filter((p) =>
+          requestedCategories.includes(p.category.toLowerCase())
         );
         setProducts(filtered);
+      })
+      .catch((err) => {
+        console.error("Error fetching category products:", err);
+        setError("Failed to load products. Please try again later.");
       })
       .finally(() => setLoading(false));
   }, [categoryName]);
@@ -23,10 +44,12 @@ function CategoryPage() {
     <div style={{ padding: "20px 40px" }}>
       {loading ? (
         <p>Loading...</p>
+      ) : error ? (
+        <p style={{ color: "#dc2626" }}>{error}</p>
       ) : products.length === 0 ? (
-        <p>No products found in "{categoryName}" yet.</p>
+        <p>No products found in "{displayTitle}" yet.</p>
       ) : (
-        <ProductGrid title={categoryName} products={products} />
+        <ProductGrid title={displayTitle} products={products} />
       )}
     </div>
   );

@@ -2,6 +2,16 @@ import { Link } from "react-router-dom";
 import "./PromoBanners.css";
 
 function PromoBanners() {
+  const kitchenCategories = [
+    "Refrigerator",
+    "Dishwasher",
+    "Microwave",
+    "Water Dispenser",
+    "Juicer",
+    "Blender",
+    "Food Processor",
+  ].join(",");
+
   return (
     <section className="promo-banners">
       <div className="promo-card promo-cool">
@@ -13,9 +23,9 @@ function PromoBanners() {
       </div>
       <div className="promo-card promo-kitchen">
         <h3>Kitchen Essentials</h3>
-        <p>Refrigerators and water dispensers built to last.</p>
-        <Link to="/category/Refrigerator">
-          <button>Shop Refrigerators</button>
+        <p>Everything you need to keep your kitchen running smoothly.</p>
+        <Link to={`/category/${encodeURIComponent(kitchenCategories)}`}>
+          <button>Shop Kitchen Essentials</button>
         </Link>
       </div>
     </section>
