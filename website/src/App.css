@@ -1,3 +1,24 @@
+/* Full viewport height layout */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Expands empty space so footer is pushed down on short/empty pages */
+.main-content {
+  flex: 1 0 auto;
+}
+
+/* Toast Styles */
 .toast {
   position: fixed;
   bottom: 24px;
@@ -7,7 +28,13 @@
   color: #fff;
   font-size: 14px;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
-.toast-success { background: #7cb342; }
-.toast-error { background: #d32f2f; }
+
+.toast-success {
+  background: #7cb342;
+}
+
+.toast-error {
+  background: #d32f2f;
+}

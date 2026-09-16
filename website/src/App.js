@@ -26,7 +26,6 @@ import AboutUs from "./pages/AboutUs/AboutUs";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import "./App.css";
 
-
 function App() {
   return (
     <AuthProvider>
@@ -34,54 +33,58 @@ function App() {
         <CartProvider>
           <WishlistProvider>
             <Router>
-              <Header />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/sale" element={<Sale />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/wishlist" element={<Wishlist />} />
-		<Route path="/about" element={<AboutUs />} />
-		<Route path="/contact" element={<ContactUs />} />
-                <Route path="/category/:categoryName" element={<CategoryPage />} />
-                <Route path="/product/:id" element={<ProductDetails />} />
+              <div className="app-container">
+                <Header />
+                <main className="main-content">
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/sale" element={<Sale />} />
+                    <Route path="/search" element={<Search />} />
+                    <Route path="/wishlist" element={<Wishlist />} />
+                    <Route path="/about" element={<AboutUs />} />
+                    <Route path="/contact" element={<ContactUs />} />
+                    <Route path="/category/:categoryName" element={<CategoryPage />} />
+                    <Route path="/product/:id" element={<ProductDetails />} />
 
-                <Route
-                  path="/my-orders"
-                  element={
-                    <ProtectedRoute>
-                      <MyOrders />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/orders"
-                  element={
-                    <ProtectedRoute>
-                      <MyOrders />
-                    </ProtectedRoute>
-                  }
-                />
+                    <Route
+                      path="/my-orders"
+                      element={
+                        <ProtectedRoute>
+                          <MyOrders />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/orders"
+                      element={
+                        <ProtectedRoute>
+                          <MyOrders />
+                        </ProtectedRoute>
+                      }
+                    />
 
-                {/* Admin Routes */}
-                <Route
-                  path="/admin"
-                  element={
-                    <ProtectedRoute adminOnly>
-                      <AdminLayout />
-                    </ProtectedRoute>
-                  }
-                >
-                  <Route index element={<AdminOverview />} />
-                  <Route path="products" element={<AdminProducts />} />
-                  <Route path="banners" element={<AdminBanners />} />
-                  <Route path="orders" element={<AdminOrders />} />
-                </Route>
-              </Routes>
-              <Footer />
+                    {/* Admin Routes */}
+                    <Route
+                      path="/admin"
+                      element={
+                        <ProtectedRoute adminOnly>
+                          <AdminLayout />
+                        </ProtectedRoute>
+                      }
+                    >
+                      <Route index element={<AdminOverview />} />
+                      <Route path="products" element={<AdminProducts />} />
+                      <Route path="banners" element={<AdminBanners />} />
+                      <Route path="orders" element={<AdminOrders />} />
+                    </Route>
+                  </Routes>
+                </main>
+                <Footer />
+              </div>
             </Router>
           </WishlistProvider>
         </CartProvider>
