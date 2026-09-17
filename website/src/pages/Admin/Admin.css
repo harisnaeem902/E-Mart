@@ -744,3 +744,108 @@
   font-size: 13px;
   margin-bottom: 10px;
 }
+/* ========================================================= */
+/* MOBILE RESPONSIVE ADDITIONS (appended, nothing above changed) */
+/* ========================================================= */
+
+@media (max-width: 900px) {
+  .admin-content {
+    padding: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 500;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .admin-sidebar.collapsed {
+    box-shadow: none;
+  }
+
+  .admin-product-row {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .admin-product-info {
+    min-width: 140px;
+  }
+
+  .admin-product-row .admin-action-btn {
+    flex: 1 1 auto;
+  }
+
+  .admin-order-card {
+    padding: 14px;
+  }
+
+  .order-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .order-id {
+    font-size: 13px;
+    word-break: break-all;
+  }
+
+  .order-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .order-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .status-dropdown-select {
+    flex: 1;
+  }
+
+  .admin-stats {
+    gap: 10px;
+  }
+
+  .stat-card {
+    min-width: 110px;
+    padding: 14px;
+  }
+
+  .stat-number {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 500px) {
+  .admin-product-row img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .admin-product-row .admin-action-btn {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+  }
+
+  .admin-category-tabs {
+    gap: 6px;
+  }
+
+  .admin-tab-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .cancel-modal {
+    width: 92%;
+    padding: 18px;
+  }
+}
